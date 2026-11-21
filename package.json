@@ -1,0 +1,21 @@
+{
+  "name": "ai-video-models",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The AI video and image models you can run on Treza, with what each supports and what a clip costs.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "generate": "tsx scripts/generate.ts",
+    "changes": "tsx scripts/changes.ts",
+    "test": "tsx --test test/*.test.ts"
+  },
+  "devDependencies": {
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1",
+    "tsx": "4.20.6"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

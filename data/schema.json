@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/treza-labs/ai-video-models/main/data/schema.json",
+  "title": "AI video and image models on Treza",
+  "description": "Shape of data/video-models.json and data/image-models.json. Prices are in US dollars and are what Treza charges.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "updated", "currency", "source", "license", "schema", "count", "models"],
+  "properties": {
+    "kind": { "enum": ["video", "image"] },
+    "updated": {
+      "type": "string",
+      "format": "date",
+      "description": "The day this file's models last changed (UTC)."
+    },
+    "currency": { "const": "USD" },
+    "source": { "type": "string", "format": "uri" },
+    "license": { "const": "CC-BY-4.0" },
+    "schema": { "type": "string", "format": "uri" },
+    "count": { "type": "integer", "minimum": 0 },
+    "models": { "type": "array" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "kind": { "const": "video" } } },
+      "then": { "properties": { "models": { "type": "array", "items": { "$ref": "#/$defs/videoModel" } } } }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "image" } } },
+      "then": { "properties": { "models": { "type": "array", "items": { "$ref": "#/$defs/imageModel" } } } }
+    }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Stable id. Where the model has a Treza page, it is that page's slug."
+    },
+    "name": { "type": "string", "minLength": 1, "pattern": "^[^:/|]+$" },
+    "vendor": { "type": "string", "minLength": 1, "pattern": "^[^:/|]+$", "description": "The company that makes the model." },
+    "trezaPage": {
+      "type": ["string", "null"],
+      "pattern": "^https://www\\.trezalabs\\.com/models/[a-z0-9-]+$",
+      "description": "The model's page on Treza, where it can be tried. Null when it has none."
+    },
+    "aspectRatio": { "type": "string", "pattern": "^\\d+(\\.\\d+)?:\\d+(\\.\\d+)?$" },
+    "usdCents": { "type": "number", "minimum": 0, "description": "US dollars, to the cent." },
+    "usdRate": { "type": "number", "exclusiveMinimum": 0, "description": "US dollars, to a tenth of a cent." },
+    "priceMap": {
+      "type": ["object", "null"],
+      "additionalProperties": { "$ref": "#/$defs/usdCents" },
+      "minProperties": 1
+    },
+    "shutsDownOn": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "The day the vendor shuts the model down, when one is announced."
+    },
+    "videoModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "name", "vendor", "treza_page", "lengths_seconds", "aspect_ratios", "resolutions",
+        "default_resolution", "max_resolution", "audio", "text_to_video", "first_frame", "last_frame",
+        "reference_images", "price", "shuts_down_on"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "$ref": "#/$defs/name" },
+        "vendor": { "$ref": "#/$defs/vendor" },
+        "treza_page": { "$ref": "#/$defs/trezaPage" },
+        "lengths_seconds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "integer", "minimum": 1 },
+          "description": "Clip lengths the model renders, shortest first."
+        },
+        "aspect_ratios": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/aspectRatio" } },
+        "resolutions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^(\\d+p|\\d+K)$" },
+          "description": "Resolutions that can be picked, lowest first."
+        },
+        "default_resolution": {
+          "type": ["string", "null"],
+          "description": "What the model renders when no resolution is picked, where known."
+        },
+        "max_resolution": { "type": ["string", "null"] },
+        "audio": {
+          "enum": ["optional", "always", "none", "unknown"],
+          "description": "optional: makes its own sound, on by default, can be turned off. always: makes sound on every clip. none: silent. unknown: not listed."
+        },
+        "text_to_video": { "type": "boolean", "description": "Renders from a prompt alone. False when it needs a first frame." },
+        "first_frame": { "type": "boolean", "description": "Can start from an image you give it." },
+        "last_frame": { "type": "boolean", "description": "Can end on an image you give it." },
+        "reference_images": { "type": "boolean", "description": "Takes reference images of a subject or style for a new scene." },
+        "price": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "per_second", "resolution", "per_second_by_resolution", "per_second_without_audio", "minimum_billed_seconds",
+                "per_input_image", "per_reference_image", "clips"
+              ],
+              "properties": {
+                "per_second": { "$ref": "#/$defs/usdRate", "description": "One second at the default resolution, with sound where the model makes it." },
+                "resolution": {
+                  "type": ["string", "null"],
+                  "description": "The resolution per_second and clips are for: the model's default, or the tier it is charged at when none is picked."
+                },
+                "per_second_by_resolution": {
+                  "type": ["object", "null"],
+                  "additionalProperties": { "$ref": "#/$defs/usdRate" },
+                  "minProperties": 1
+                },
+                "per_second_without_audio": {
+                  "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/usdRate" }],
+                  "description": "One second at the default resolution with sound turned off, where that costs less."
+                },
+                "minimum_billed_seconds": {
+                  "type": ["integer", "null"],
+                  "minimum": 1,
+                  "description": "Clips shorter than this are charged as this many seconds."
+                },
+                "per_input_image": {
+                  "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/usdRate" }],
+                  "description": "Added for each first or last frame image."
+                },
+                "per_reference_image": {
+                  "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/usdRate" }],
+                  "description": "Added for each reference image."
+                },
+                "clips": {
+                  "type": "object",
+                  "minProperties": 1,
+                  "propertyNames": { "pattern": "^[1-9]\\d*$" },
+                  "additionalProperties": { "$ref": "#/$defs/usdCents" },
+                  "description": "One clip at each length the model renders, at the default resolution, by length in seconds."
+                }
+              }
+            }
+          ],
+          "description": "Null when Treza quotes the model per run rather than from a fixed rate."
+        },
+        "shuts_down_on": { "$ref": "#/$defs/shutsDownOn" }
+      }
+    },
+    "imageModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "name", "vendor", "treza_page", "aspect_ratios", "aspect_ratio_auto", "resolutions", "max_resolution",
+        "quality_options", "text_to_image", "reference_images", "max_reference_images", "transparent_background",
+        "price", "shuts_down_on"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "$ref": "#/$defs/name" },
+        "vendor": { "$ref": "#/$defs/vendor" },
+        "treza_page": { "$ref": "#/$defs/trezaPage" },
+        "aspect_ratios": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/aspectRatio" } },
+        "aspect_ratio_auto": { "type": "boolean", "description": "Can pick the aspect ratio itself." },
+        "resolutions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^(\\d+|\\d+(\\.\\d+)?K)$" },
+          "description": "Size settings, smallest first: a long side in pixels, or 1K, 2K, 4K."
+        },
+        "max_resolution": { "type": ["string", "null"] },
+        "quality_options": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "text_to_image": { "type": "boolean", "description": "Draws from a prompt alone. False when it needs a reference image." },
+        "reference_images": { "type": "boolean", "description": "Takes images to edit or to draw from." },
+        "max_reference_images": { "type": ["integer", "null"], "minimum": 1 },
+        "transparent_background": { "type": "boolean" },
+        "price": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["per_image", "by_resolution", "by_quality", "by_aspect_ratio", "per_reference_image"],
+              "properties": {
+                "per_image": { "$ref": "#/$defs/usdCents", "description": "One image at the model's default settings." },
+                "by_resolution": { "$ref": "#/$defs/priceMap" },
+                "by_quality": { "$ref": "#/$defs/priceMap" },
+                "by_aspect_ratio": { "$ref": "#/$defs/priceMap" },
+                "per_reference_image": {
+                  "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/usdRate" }],
+                  "description": "Added for each reference image."
+                }
+              }
+            }
+          ],
+          "description": "Null when Treza quotes the model per run rather than from a fixed rate."
+        },
+        "shuts_down_on": { "$ref": "#/$defs/shutsDownOn" }
+      }
+    }
+  }
+}
