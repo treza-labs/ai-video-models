@@ -5,7 +5,7 @@ The AI video and image models you can run on [Treza](https://www.trezalabs.com),
 ![Treza demo](https://raw.githubusercontent.com/treza-labs/treza-labs/main/assets/treza-demo.gif)
 
 <!-- updated:start -->
-Updated 2026-11-21: 33 video models and 69 image models.
+Updated 2026-11-25: 31 video models and 69 image models.
 <!-- updated:end -->
 
 ## Video models
@@ -17,8 +17,6 @@ Clip prices are what a clip costs when you leave the resolution unset, with soun
 | --- | --- | --- | --- | --- | --- | --- | --: | --: | --: | --- |
 | HappyHorse 1.0 | Alibaba | 3 to 15 s | 21:9 to 9:21 (7) | 1080p | Not listed | First frame, references | $1.19 | $2.38 | $0.238, 5 s min | — |
 | HappyHorse 1.1 | Alibaba | 3 to 15 s | 21:9 to 9:21 (7) | 1080p | Always on | First frame, references | $0.91 | $1.82 | $0.182, 5 s min | [Try](https://www.trezalabs.com/models/happyhorse-1-1) |
-| Wan 2.6 | Alibaba | 5, 10 s | 16:9, 9:16 | 1080p | Yes | First frame | $1.05 | $2.10 | $0.210 | [Try](https://www.trezalabs.com/models/wan-2-6) |
-| Wan 2.7 | Alibaba | 2 to 10 s | 16:9 to 9:16 (5) | 1080p | Yes | First + last frame, references | $0.70 | $1.40 | $0.140, 5 s min | [Try](https://www.trezalabs.com/models/wan-2-7) |
 | Wan 3.0 | Alibaba | 2 to 30 s | 21:9 to 9:16 (6) | 1080p | Yes | First + last frame | $1.40 | $2.80 | $0.280 | [Try](https://www.trezalabs.com/models/wan-3-0) |
 | Wan 3.0 Prime | Alibaba | 2 to 30 s | 21:9 to 9:16 (6) | 1080p | Yes | First + last frame | $1.96 | $3.92 | $0.392, 5 s min | — |
 | FLUX.3 Video | Black Forest Labs | 5 to 20 s | 21:9 to 9:21 (8) | 1080p, max 4K | Yes | First + last frame | $2.03 | $4.06 | $0.406 | [Try](https://www.trezalabs.com/models/flux-3-video) |
