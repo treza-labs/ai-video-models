@@ -5,7 +5,7 @@ The AI video and image models you can run on [Treza](https://www.trezalabs.com),
 ![Treza demo](https://raw.githubusercontent.com/treza-labs/treza-labs/main/assets/treza-demo.gif)
 
 <!-- updated:start -->
-Updated 2026-11-25: 31 video models and 69 image models.
+Updated 2026-11-26: 31 video models and 69 image models.
 <!-- updated:end -->
 
 ## Video models
@@ -76,7 +76,7 @@ Clip prices are what a clip costs when you leave the resolution unset, with soun
 | Krea 2 Large | Krea | 2.35:1 to 9:16 (9) | 1K | Up to 1 | $0.08 | — | [Try](https://www.trezalabs.com/models/krea-2) |
 | Krea 2 Medium | Krea | 2.35:1 to 9:16 (9) | 1K | Up to 1 | $0.04 | — | — |
 | Krea 2 Medium Turbo | Krea | 2.35:1 to 9:16 (9) | 1K | Up to 1 | $0.02 | — | — |
-| Muse Image | Meta | — | — | Yes | $0.01 | — | [Try](https://www.trezalabs.com/models/muse-image) |
+| Muse Image | Meta | 8:1 to 1:8 (27) | — | Up to 10 | $0.01 | — | [Try](https://www.trezalabs.com/models/muse-image) |
 | MAI-Image-2.5 | Microsoft | 16:9 to 9:16 (7), auto | — | Up to 1 | $0.07 | — | — |
 | MAI-Image-2.5 Pro | Microsoft | 16:9 to 9:16 (7), auto | — | Up to 1 | $0.16 | — | — |
 | MAI-Image-2.6 | Microsoft | 16:9 to 9:16 (7), auto | — | Up to 5 | $0.06 | — | [Try](https://www.trezalabs.com/models/mai-image-2-6) |
