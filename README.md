@@ -5,7 +5,7 @@ The AI video and image models you can run on [Treza](https://www.trezalabs.com),
 ![Treza demo](https://raw.githubusercontent.com/treza-labs/treza-labs/main/assets/treza-demo.gif)
 
 <!-- updated:start -->
-Updated 2026-11-26: 31 video models and 69 image models.
+Updated 2026-11-27: 29 video models and 69 image models.
 <!-- updated:end -->
 
 ## Video models
@@ -31,8 +31,6 @@ Clip prices are what a clip costs when you leave the resolution unset, with soun
 | Veo 3.1 Fast | Google | 4, 6, 8 s | 16:9, 9:16 | 720p, max 4K | Yes | First + last frame | $0.84 (6 s) | $1.12 (8 s) | $0.140 | [Try](https://www.trezalabs.com/models/veo-3-1-fast) |
 | Veo 3.1 Lite | Google | 4, 6, 8 s | 16:9, 9:16 | 720p, max 1080p | Yes | First + last frame | $0.42 (6 s) | $0.56 (8 s) | $0.070 | [Try](https://www.trezalabs.com/models/veo-3-1-lite) |
 | HeyGen Video | HeyGen | 5 to 30 s | 21:9 to 9:16 (6) | 768p, max 2K | No | First frame, references | $0.70 | $1.40 | $0.140 | [Try](https://www.trezalabs.com/models/heygen-video) |
-| Kling 3.0 Pro | Kuaishou | 3 to 15 s | 16:9, 1:1, 9:16 | 1080p | Yes | First + last frame | $1.18 | $2.35 | $0.235 | [Try](https://www.trezalabs.com/models/kling-3-0-pro) |
-| Kling 3.0 Standard | Kuaishou | 3 to 15 s | 16:9, 1:1, 9:16 | 720p | Yes | First + last frame | $0.88 | $1.76 | $0.176, 5 s min | [Try](https://www.trezalabs.com/models/kling-3-0-standard) |
 | Kling 4.0 | Kuaishou | 3 to 30 s | 21:9 to 9:16 (4) | 720p, max 1080p | No | First + last frame | $1.10 | $2.20 | $0.220 | [Try](https://www.trezalabs.com/models/kling-4-0) |
 | Kling 4.0 Flash | Kuaishou | 3 to 20 s | 21:9 to 9:16 (4) | 720p | No | First frame | $0.66 | $1.32 | $0.132 | [Try](https://www.trezalabs.com/models/kling-4-0-flash) |
 | Kling Video O1 | Kuaishou | 5, 10 s | 16:9, 1:1, 9:16 | 720p | Yes | First + last frame | $0.78 | $1.57 | $0.157 | [Try](https://www.trezalabs.com/models/kling-video-o1) |
